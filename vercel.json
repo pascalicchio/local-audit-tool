@@ -1,0 +1,10 @@
+{
+  "buildCommand": "npm install",
+  "outputDirectory": "static",
+  "framework": null,
+  "rewrites": [
+    { "source": "/api/audit", "destination": "/api/audit.js" },
+    { "source": "/api/lead", "destination": "/api/lead.js" },
+    { "source": "/api/recommendations", "destination": "/api/ai-recommendations.js" }
+  ]
+}

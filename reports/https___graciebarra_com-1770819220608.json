@@ -1,0 +1,72 @@
+{
+  "url": "https://graciebarra.com",
+  "timestamp": "2026-02-11T14:13:40.603Z",
+  "score": 50,
+  "totalChecks": 8,
+  "passedChecks": 4,
+  "checks": [
+    {
+      "name": "SSL Certificate",
+      "passed": true,
+      "message": "SSL certificate detected"
+    },
+    {
+      "name": "Mobile Friendly",
+      "passed": false,
+      "message": "No mobile optimization detected"
+    },
+    {
+      "name": "Meta Description",
+      "passed": false,
+      "message": "Missing meta description"
+    },
+    {
+      "name": "Contact Information",
+      "passed": true,
+      "message": "Contact information found"
+    },
+    {
+      "name": "Call to Action",
+      "passed": true,
+      "message": "Call-to-action elements found"
+    },
+    {
+      "name": "Social Links",
+      "passed": true,
+      "message": "Social links: facebook, instagram, youtube"
+    },
+    {
+      "name": "Images",
+      "passed": false,
+      "message": "Images found but missing alt tags"
+    },
+    {
+      "name": "Page Speed Indicators",
+      "passed": false,
+      "message": "No speed optimizations detected"
+    }
+  ],
+  "recommendations": [
+    {
+      "issue": "Mobile Friendly",
+      "fix": "No mobile optimization detected",
+      "priority": "high"
+    },
+    {
+      "issue": "Meta Description",
+      "fix": "Missing meta description",
+      "priority": "high"
+    },
+    {
+      "issue": "Images",
+      "fix": "Images found but missing alt tags",
+      "priority": "high"
+    },
+    {
+      "issue": "Page Speed Indicators",
+      "fix": "No speed optimizations detected",
+      "priority": "high"
+    }
+  ],
+  "grade": "C"
+}

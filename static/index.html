@@ -531,10 +531,6 @@
       recsList.innerHTML = (data.recommendations || []).map(r => `<p>• ${r}</p>`).join('');
     }
 
-        document.getElementById('loading').classList.add('hidden');
-      }
-    }
-
     function displayResults(data) {
       if (!data || data.error) return;
       

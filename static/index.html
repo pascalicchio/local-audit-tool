@@ -407,7 +407,7 @@
       btn.textContent = '⏳ Analyzing...';
       
       try {
-        const res = await fetch('https://local-audit-tool.vercel.app/api/check-core-web-vitals', {
+        const res = await fetch('https://local-audit-tool.vercel.app/api/core-web-vitals', {
           method: 'POST', headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({ url, strategy })
         });
@@ -472,7 +472,7 @@
       btn.textContent = '⏳ Scanning...';
       
       try {
-        const res = await fetch('https://local-audit-tool.vercel.app/api/check-broken-links', {
+        const res = await fetch('https://local-audit-tool.vercel.app/api/broken-links', {
           method: 'POST', headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({ url, maxLinks: 50 })
         });

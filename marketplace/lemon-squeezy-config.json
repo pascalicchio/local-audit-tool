@@ -1,0 +1,70 @@
+{
+  "name": "Website Audit Pro v4.1",
+  "description": "Professional website audit tool with multi-page crawl, Core Web Vitals, broken link detection, PDF reports, and white-label options.",
+  "price": 4000,
+  "currency": "USD",
+  "variants": [
+    {
+      "name": "Self-Hosted License",
+      "price": 4000,
+      "description": "Full source code with 6 months support. Deploy on your own server."
+    },
+    {
+      "name": "Agency License",
+      "price": 50000,
+      "description": "Full white-label branding, custom domain, priority support, lifetime updates."
+    },
+    {
+      "name": "Enterprise License",
+      "price": 200000,
+      "description": "Custom features, API access, white-label SaaS mode, dedicated support."
+    }
+  ],
+  "custom_fields": [],
+  "media": {
+    "images": [
+      "/screenshots/homepage.png",
+      "/screenshots/audit-results.png",
+      "/screenshots/pdf-report.png",
+      "/screenshots/white-label.png"
+    ],
+    "videos": [
+      "/videos/demo.mp4"
+    ]
+  },
+  "files": [
+    {
+      "name": "website-audit-pro-v4.1.zip",
+      "size": 5242880
+    }
+  ],
+  "requirements": [
+    "Node.js 18+",
+    "Vercel account (free tier)",
+    "Google PageSpeed Insights API key (free tier available)"
+  ],
+  "faq": [
+    {
+      "question": "How do I deploy this?",
+      "answer": "Deploy to Vercel in 5 minutes. Just connect your GitHub repository and add environment variables."
+    },
+    {
+      "question": "Can I use this for client work?",
+      "answer": "Yes! The Agency license allows you to use this for client projects with your own branding."
+    },
+    {
+      "question": "Do I need a server?",
+      "answer": "Vercel's free tier works great. For high traffic, upgrade to Pro ($20/mo)."
+    },
+    {
+      "question": "What's the difference from free tools?",
+      "answer": "Free tools only check your homepage. This tool crawls up to 20 pages and generates professional PDF reports."
+    },
+    {
+      "question": "Can I resell this?",
+      "answer": "The Enterprise license includes SaaS mode for white-label resale."
+    }
+  ],
+  "documentation_url": "https://github.com/pascalicchio/local-audit-tool#readme",
+  "support_url": "https://github.com/pascalicchio/local-audit-tool/issues"
+}

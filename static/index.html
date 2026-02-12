@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Website Audit Pro v4.0 - Multi-Page SEO Analysis</title>
+  <title>Website Audit Pro v4.0 - Multi-Page SEO Analysis + Core Web Vitals + Broken Links</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <meta name="description" content="Free website audit with multi-page crawl, keyword research, tech detection, and GSC insights.">
+  <meta name="description" content="Free website audit: multi-page crawl, keyword research, tech detection, Core Web Vitals, and broken link detection.">
   <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B5E74SGTP9"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
+    gtag('config', 'G-B5E74SGTP9');
   </script>
 </head>
 <body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white min-h-screen">
@@ -39,7 +39,7 @@
     <h1 class="text-4xl md:text-6xl font-bold mb-6">
       Free <span class="bg-gradient-to-r from-cyan-400 to-green-400 bg-clip-text text-transparent">Website Audit</span>
     </h1>
-    <p class="text-xl text-gray-400 mb-4">Crawl up to 20 pages • 25+ checks • Keyword research • Tech detection</p>
+    <p class="text-xl text-gray-400 mb-4">Crawl up to 20 pages • 25+ checks • Keyword research • Tech detection • Core Web Vitals • Broken Links</p>
     
     <div class="max-w-xl mx-auto bg-gray-800/50 backdrop-blur rounded-2xl p-6 border border-gray-700/50 shadow-2xl">
       <input type="url" id="url" placeholder="example.com OR https://example.com" 
@@ -50,12 +50,137 @@
                title="Number of pages to crawl">
         <button onclick="runAudit()" id="auditBtn"
                 class="flex-1 py-4 bg-gradient-to-r from-cyan-500 to-green-500 rounded-xl font-bold text-gray-900">
-          🚀 Run Multi-Page Audit
+          🚀 Run Full Audit
         </button>
       </div>
     </div>
   </section>
 
+  <!-- Feature Tabs -->
+  <section class="container mx-auto px-4 py-8">
+    <div class="flex flex-wrap justify-center gap-4">
+      <button onclick="switchTab('audit')" id="tab-audit" class="tab-btn px-4 py-2 bg-cyan-500/20 text-cyan-400 rounded-lg border border-cyan-500/30">
+        🔍 Full Audit
+      </button>
+      <button onclick="switchTab('core-web-vitals')" id="tab-core-web-vitals" class="tab-btn px-4 py-2 bg-gray-700/30 text-gray-400 rounded-lg border border-gray-600/30">
+        📊 Core Web Vitals
+      </button>
+      <button onclick="switchTab('broken-links')" id="tab-broken-links" class="tab-btn px-4 py-2 bg-gray-700/30 text-gray-400 rounded-lg border border-gray-600/30">
+        🔗 Broken Links
+      </button>
+    </div>
+  </section>
+
+  <!-- Core Web Vitals Section -->
+  <section id="cwv-section" class="hidden container mx-auto px-4 py-12">
+    <div class="max-w-4xl mx-auto bg-gray-800/50 backdrop-blur rounded-2xl p-6 border border-gray-700/50">
+      <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+        <span class="text-3xl">📊</span> Core Web Vitals Analysis
+      </h2>
+      <p class="text-gray-400 mb-4">Check your site's LCP, CLS, and INP scores using Google PageSpeed Insights.</p>
+      
+      <div class="flex gap-4 mb-6">
+        <input type="url" id="cwvUrl" placeholder="example.com OR https://example.com" 
+               class="flex-1 p-4 bg-gray-900/50 rounded-xl border border-gray-600 text-white placeholder-gray-500 focus:border-purple-400 focus:outline-none">
+        <select id="cwvStrategy" class="p-4 bg-gray-900/50 rounded-xl border border-gray-600 text-white focus:border-purple-400 focus:outline-none">
+          <option value="mobile">📱 Mobile</option>
+          <option value="desktop">💻 Desktop</option>
+        </select>
+        <button onclick="runCoreWebVitals()" id="cwvBtn"
+                class="px-6 py-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl font-bold text-white">
+          📊 Analyze
+        </button>
+      </div>
+
+      <!-- CWV Results -->
+      <div id="cwv-results" class="hidden">
+        <div class="grid md:grid-cols-4 gap-4 mb-6">
+          <div id="cwv-score-card" class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 border border-gray-700 text-center">
+            <div class="text-5xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent" id="cwv-overall">-</div>
+            <div class="text-gray-400 mt-2">Performance Score</div>
+          </div>
+          <div id="cwv-lcp-card" class="bg-gray-800/50 rounded-xl p-4 border border-gray-700 text-center">
+            <div class="text-3xl font-bold text-cyan-400" id="cwv-lcp">-</div>
+            <div class="text-sm text-gray-400">LCP (Load)</div>
+            <div class="text-xs" id="cwv-lcp-rating"></div>
+          </div>
+          <div id="cwv-cls-card" class="bg-gray-800/50 rounded-xl p-4 border border-gray-700 text-center">
+            <div class="text-3xl font-bold text-yellow-400" id="cwv-cls">-</div>
+            <div class="text-sm text-gray-400">CLS (Stability)</div>
+            <div class="text-xs" id="cwv-cls-rating"></div>
+          </div>
+          <div id="cwv-inp-card" class="bg-gray-800/50 rounded-xl p-4 border border-gray-700 text-center">
+            <div class="text-3xl font-bold text-green-400" id="cwv-inp">-</div>
+            <div class="text-sm text-gray-400">INP (Responsive)</div>
+            <div class="text-xs" id="cwv-inp-rating"></div>
+          </div>
+        </div>
+
+        <div id="cwv-recommendations" class="bg-purple-900/20 rounded-xl p-4 border border-purple-500/30">
+          <h3 class="font-bold mb-3">💡 Recommendations</h3>
+          <div id="cwv-recs-list" class="space-y-3"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Broken Links Section -->
+  <section id="bl-section" class="hidden container mx-auto px-4 py-12">
+    <div class="max-w-4xl mx-auto bg-gray-800/50 backdrop-blur rounded-2xl p-6 border border-gray-700/50">
+      <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+        <span class="text-3xl">🔗</span> Broken Link Detection
+      </h2>
+      <p class="text-gray-400 mb-4">Find broken links, redirects, and crawl errors on your website.</p>
+      
+      <div class="flex gap-4 mb-6">
+        <input type="url" id="blUrl" placeholder="example.com OR https://example.com" 
+               class="flex-1 p-4 bg-gray-900/50 rounded-xl border border-gray-600 text-white placeholder-gray-500 focus:border-orange-400 focus:outline-none">
+        <button onclick="runBrokenLinks()" id="blBtn"
+                class="px-6 py-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl font-bold text-white">
+          🔗 Scan Links
+        </button>
+      </div>
+
+      <!-- Broken Links Results -->
+      <div id="bl-results" class="hidden">
+        <div class="grid md:grid-cols-4 gap-4 mb-6">
+          <div class="bg-green-500/10 rounded-lg p-4 border border-green-500/30 text-center">
+            <div class="text-3xl font-bold text-green-400" id="bl-ok">0</div>
+            <div class="text-sm text-gray-400">Working</div>
+          </div>
+          <div class="bg-yellow-500/10 rounded-lg p-4 border border-yellow-500/30 text-center">
+            <div class="text-3xl font-bold text-yellow-400" id="bl-redirects">0</div>
+            <div class="text-sm text-gray-400">Redirects</div>
+          </div>
+          <div class="bg-red-500/10 rounded-lg p-4 border border-red-500/30 text-center">
+            <div class="text-3xl font-bold text-red-400" id="bl-broken">0</div>
+            <div class="text-sm text-gray-400">Broken</div>
+          </div>
+          <div class="bg-gray-500/10 rounded-lg p-4 border border-gray-500/30 text-center">
+            <div class="text-3xl font-bold text-gray-400" id="bl-total">0</div>
+            <div class="text-sm text-gray-400">Total Scanned</div>
+          </div>
+        </div>
+
+        <div id="bl-broken-list" class="hidden bg-red-900/20 rounded-xl p-4 border border-red-500/30 mb-4">
+          <h3 class="font-bold text-red-400 mb-3">❌ Broken Links Found</h3>
+          <div id="bl-broken-items" class="space-y-2 text-sm"></div>
+        </div>
+
+        <div id="bl-redirect-list" class="hidden bg-yellow-900/20 rounded-xl p-4 border border-yellow-500/30 mb-4">
+          <h3 class="font-bold text-yellow-400 mb-3">⚠️ Redirect Chains</h3>
+          <div id="bl-redirect-items" class="space-y-2 text-sm"></div>
+        </div>
+
+        <div id="bl-recs" class="bg-gray-800/50 rounded-xl p-4 border border-gray-700">
+          <h3 class="font-bold mb-2">💡 Tips</h3>
+          <div id="bl-recs-list" class="text-sm text-gray-400"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="audit-section" class="container mx-auto px-4 py-12">
   <section id="results" class="hidden container mx-auto px-4 py-12">
     <div class="max-w-7xl mx-auto">
       <!-- Score Card -->
@@ -178,8 +303,195 @@
   <script>
     const COLORS = { security: 'border-red-500', performance: 'border-blue-500', seo: 'border-purple-500', technical: 'border-yellow-500', social: 'border-pink-500', ux: 'border-green-500', links: 'border-orange-500', branding: 'border-cyan-500' };
     const ICONS = { security: '🔐', performance: '⚡', seo: '📝', technical: '⚙️', social: '📱', ux: '🎯', links: '🔗', branding: '🎨' };
+    let currentTab = 'audit';
+
+    function switchTab(tab) {
+      currentTab = tab;
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-cyan-500/20', 'text-cyan-400', 'border-cyan-500/30');
+        btn.classList.add('bg-gray-700/30', 'text-gray-400', 'border-gray-600/30');
+      });
+      const activeBtn = document.getElementById('tab-' + tab);
+      activeBtn.classList.remove('bg-gray-700/30', 'text-gray-400', 'border-gray-600/30');
+      activeBtn.classList.add('bg-cyan-500/20', 'text-cyan-400', 'border-cyan-500/30');
+      
+      document.getElementById('audit-section')?.classList.add('hidden');
+      document.getElementById('results')?.classList.add('hidden');
+      document.getElementById('cwv-section')?.classList.add('hidden');
+      document.getElementById('bl-section')?.classList.add('hidden');
+      
+      if (tab === 'audit') {
+        document.getElementById('results')?.classList.remove('hidden');
+      } else if (tab === 'core-web-vitals') {
+        document.getElementById('cwv-section')?.classList.remove('hidden');
+      } else if (tab === 'broken-links') {
+        document.getElementById('bl-section')?.classList.remove('hidden');
+      }
+    }
 
     async function runAudit() {
+      let url = document.getElementById('url').value.trim();
+      const maxPages = document.getElementById('maxPages').value || 10;
+      if (!url) return alert('Enter your website URL');
+      if (!url.startsWith('http')) url = 'https://' + url;
+      
+      document.getElementById('loading').classList.remove('hidden');
+      document.getElementById('results').classList.add('hidden');
+      document.getElementById('savedBadge').classList.add('hidden');
+      
+      try {
+        document.getElementById('crawlProgress').textContent = 'Crawling homepage...';
+        const res = await fetch('https://local-audit-tool.vercel.app/api/audit', {
+          method: 'POST', headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ url, pages: maxPages })
+        });
+        
+        const data = await res.json();
+        if (!res.ok || data.error) throw new Error(data.error || 'Failed');
+        displayResults(data);
+      } catch (e) {
+        alert('Error: ' + e.message);
+      } finally {
+        document.getElementById('loading').classList.add('hidden');
+      }
+    }
+
+    async function runCoreWebVitals() {
+      let url = document.getElementById('cwvUrl').value.trim();
+      const strategy = document.getElementById('cwvStrategy').value;
+      if (!url) return alert('Enter your website URL');
+      if (!url.startsWith('http')) url = 'https://' + url;
+      
+      const btn = document.getElementById('cwvBtn');
+      btn.disabled = true;
+      btn.textContent = '⏳ Analyzing...';
+      
+      try {
+        const res = await fetch('https://local-audit-tool.vercel.app/api/check-core-web-vitals', {
+          method: 'POST', headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ url, strategy })
+        });
+        
+        const data = await res.json();
+        if (!res.ok || data.error) throw new Error(data.error || 'Failed');
+        displayCoreWebVitals(data);
+      } catch (e) {
+        alert('Error: ' + e.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '📊 Analyze';
+      }
+    }
+
+    function displayCoreWebVitals(data) {
+      document.getElementById('cwv-results').classList.remove('hidden');
+      
+      document.getElementById('cwv-overall').textContent = data.overallScore || 0;
+      document.getElementById('cwv-lcp').textContent = (data.coreWebVitals?.lcp?.value || 0) + 'ms';
+      document.getElementById('cwv-cls').textContent = (data.coreWebVitals?.cls?.value || 0).toFixed(3);
+      document.getElementById('cwv-inp').textContent = (data.coreWebVitals?.inp?.value || 0) + 'ms';
+      
+      // Ratings
+      const ratingColors = { good: 'text-green-400', 'needs-improvement': 'text-yellow-400', poor: 'text-red-400' };
+      const lcpRating = data.coreWebVitals?.lcp?.rating || 'poor';
+      const clsRating = data.coreWebVitals?.cls?.rating || 'poor';
+      const inpRating = data.coreWebVitals?.inp?.rating || 'poor';
+      
+      document.getElementById('cwv-lcp-rating').textContent = lcpRating.toUpperCase().replace('-', ' ');
+      document.getElementById('cwv-lcp-rating').className = 'text-xs ' + (ratingColors[lcpRating] || 'text-red-400');
+      
+      document.getElementById('cwv-cls-rating').textContent = clsRating.toUpperCase().replace('-', ' ');
+      document.getElementById('cwv-cls-rating').className = 'text-xs ' + (ratingColors[clsRating] || 'text-red-400');
+      
+      document.getElementById('cwv-inp-rating').textContent = inpRating.toUpperCase().replace('-', ' ');
+      document.getElementById('cwv-inp-rating').className = 'text-xs ' + (ratingColors[inpRating] || 'text-red-400');
+      
+      // Recommendations
+      const recsList = document.getElementById('cwv-recs-list');
+      recsList.innerHTML = '';
+      (data.recommendations || []).forEach(rec => {
+        recsList.innerHTML += `
+          <div class="border-l-2 border-purple-500 pl-3">
+            <div class="font-medium text-white">${rec.title}</div>
+            <div class="text-xs text-gray-400 mb-1">${rec.metric} • ${rec.priority}</div>
+            <ul class="text-xs text-gray-400 list-disc list-inside">
+              ${(rec.actions || []).slice(0, 3).map(a => `<li>${a}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      });
+    }
+
+    async function runBrokenLinks() {
+      let url = document.getElementById('blUrl').value.trim();
+      if (!url) return alert('Enter your website URL');
+      if (!url.startsWith('http')) url = 'https://' + url;
+      
+      const btn = document.getElementById('blBtn');
+      btn.disabled = true;
+      btn.textContent = '⏳ Scanning...';
+      
+      try {
+        const res = await fetch('https://local-audit-tool.vercel.app/api/check-broken-links', {
+          method: 'POST', headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ url, maxLinks: 50 })
+        });
+        
+        const data = await res.json();
+        if (!res.ok || data.error) throw new Error(data.error || 'Failed');
+        displayBrokenLinks(data);
+      } catch (e) {
+        alert('Error: ' + e.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '🔗 Scan Links';
+      }
+    }
+
+    function displayBrokenLinks(data) {
+      document.getElementById('bl-results').classList.remove('hidden');
+      
+      document.getElementById('bl-total').textContent = data.summary?.totalLinksChecked || 0;
+      document.getElementById('bl-ok').textContent = data.summary?.ok || 0;
+      document.getElementById('bl-redirects').textContent = data.summary?.redirects || 0;
+      document.getElementById('bl-broken').textContent = data.summary?.broken || 0;
+      
+      // Broken links list
+      const brokenList = document.getElementById('bl-broken-list');
+      const brokenItems = document.getElementById('bl-broken-items');
+      if ((data.brokenLinks || []).length > 0) {
+        brokenList.classList.remove('hidden');
+        brokenItems.innerHTML = data.brokenLinks.map(link => 
+          `<div class="flex items-center gap-2 p-2 bg-red-500/10 rounded">
+            <span class="text-red-400 font-mono text-xs break-all">${link.url.substring(0, 60)}${link.url.length > 60 ? '...' : ''}</span>
+            <span class="text-xs text-gray-500">${link.statusCode}</span>
+          </div>`
+        ).join('');
+      } else {
+        brokenList.classList.add('hidden');
+      }
+      
+      // Redirects list
+      const redirectList = document.getElementById('bl-redirect-list');
+      const redirectItems = document.getElementById('bl-redirect-items');
+      if ((data.redirects || []).length > 0) {
+        redirectList.classList.remove('hidden');
+        redirectItems.innerHTML = data.redirects.slice(0, 5).map(link => 
+          `<div class="flex items-center gap-2 p-2 bg-yellow-500/10 rounded">
+            <span class="text-yellow-400 text-xs break-all">${link.url.substring(0, 50)}...</span>
+            <span class="text-xs text-gray-500">→ ${link.redirectUrl?.substring(0, 30)}...</span>
+          </div>`
+        ).join('');
+      } else {
+        redirectList.classList.add('hidden');
+      }
+      
+      // Recommendations
+      const recsList = document.getElementById('bl-recs-list');
+      recsList.innerHTML = (data.recommendations || []).map(r => `<p>• ${r}</p>`).join('');
+    }
+
+    function displayResults(data) {
       let url = document.getElementById('url').value.trim();
       const maxPages = document.getElementById('maxPages').value || 10;
       if (!url) return alert('Enter your website URL');
